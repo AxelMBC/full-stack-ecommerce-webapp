@@ -1,9 +1,41 @@
 "use client";
+import { useState } from "react";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { Flex, Box, Link, Button } from "@chakra-ui/react";
+import {
+  DrawerActionTrigger,
+  DrawerBackdrop,
+  DrawerBody,
+  DrawerCloseTrigger,
+  DrawerContent,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerRoot,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
 
-import { Flex, Box, Link, Button, useBreakpointValue } from "@chakra-ui/react";
+const headerOptions = [
+  {
+    title: "Store",
+    link: "/store",
+  },
+  {
+    title: "Sell Tech",
+    link: "/sell-tech",
+  },
+  {
+    title: "Trade-In Program",
+    link: "/trade-in-program",
+  },
+  {
+    title: "Sustainability",
+    link: "/sustainablity",
+  },
+];
 
 const Header = () => {
-  const isDesktop = useBreakpointValue({ base: false, md: true });
+  const [open, setOpen] = useState(false);
 
   return (
     <Flex
@@ -22,28 +54,17 @@ const Header = () => {
       </Box>
 
       {/* Navigation Links */}
-      {isDesktop && (
-        <Flex as="nav" gap="24px">
-          {[
-            "Store",
-            "Sell Tech",
-            "Trade-In Program",
-            "Community Forum",
-            "Sustainability",
-          ].map((item) => (
-            <NavLink
-              key={item}
-              href={`/${item.toLowerCase().replace(/ /g, "-")}`}
-            >
-              {item}
-            </NavLink>
-          ))}
-        </Flex>
-      )}
+
+      <Flex as="nav" gap="24px" hideBelow="lg">
+        {headerOptions.map((item, index) => (
+          <NavLink key={index} href={item.link}>
+            {item.title}
+          </NavLink>
+        ))}
+      </Flex>
 
       {/* User Actions */}
-      {/* User Actions */}
-      <Flex gap="16px">
+      <Flex gap="16px" hideBelow="lg">
         <Button
           as={Link}
           variant="outline"
@@ -70,6 +91,36 @@ const Header = () => {
           Sign Up
         </Button>
       </Flex>
+
+      {/* Mobile Menu */}
+      <DrawerRoot open={open} onOpenChange={(e) => setOpen(e.open)}>
+        <DrawerBackdrop />
+        <DrawerTrigger hideFrom="lg" asChild>
+          <GiHamburgerMenu style={{ cursor: "pointer" }} />
+        </DrawerTrigger>
+        <DrawerContent>
+          <DrawerHeader
+            paddingLeft="24px"
+            paddingTop="24px"
+            paddingBottom="56px"
+          >
+            <DrawerTitle>Tech MarketPlace</DrawerTitle>
+          </DrawerHeader>
+          <DrawerBody>
+            <Flex gap="6" direction="column" paddingLeft="24px">
+              {headerOptions.map((item, index) => (
+                <NavLink key={index} href={item.link}>
+                  <p style={{ fontWeight: "bold", fontSize: "21px" }}>
+                    {item.title}
+                  </p>
+                </NavLink>
+              ))}
+            </Flex>
+          </DrawerBody>
+
+          <DrawerCloseTrigger />
+        </DrawerContent>
+      </DrawerRoot>
     </Flex>
   );
 };
