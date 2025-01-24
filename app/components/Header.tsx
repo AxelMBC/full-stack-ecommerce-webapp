@@ -3,12 +3,10 @@ import { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { Flex, Box, Link, Button } from "@chakra-ui/react";
 import {
-  DrawerActionTrigger,
   DrawerBackdrop,
   DrawerBody,
   DrawerCloseTrigger,
   DrawerContent,
-  DrawerFooter,
   DrawerHeader,
   DrawerRoot,
   DrawerTitle,
@@ -98,7 +96,7 @@ const Header = () => {
         <DrawerTrigger hideFrom="lg" asChild>
           <GiHamburgerMenu style={{ cursor: "pointer" }} />
         </DrawerTrigger>
-        <DrawerContent>
+        <DrawerContent color="white">
           <DrawerHeader
             paddingLeft="24px"
             paddingTop="24px"
@@ -109,11 +107,11 @@ const Header = () => {
           <DrawerBody>
             <Flex gap="6" direction="column" paddingLeft="24px">
               {headerOptions.map((item, index) => (
-                <NavLink key={index} href={item.link}>
+                <Link key={index} href={item.link}>
                   <p style={{ fontWeight: "bold", fontSize: "21px" }}>
                     {item.title}
                   </p>
-                </NavLink>
+                </Link>
               ))}
             </Flex>
           </DrawerBody>
