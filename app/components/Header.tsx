@@ -12,6 +12,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+import { useRouter } from "next/navigation";
 
 const headerOptions = [
   {
@@ -34,6 +35,7 @@ const headerOptions = [
 
 const Header = () => {
   const [open, setOpen] = useState(false);
+  const router = useRouter();
 
   return (
     <Flex
@@ -47,7 +49,12 @@ const Header = () => {
       boxShadow="sm"
     >
       {/* Logo Section */}
-      <Box fontWeight="bold" fontSize="lg">
+      <Box
+        fontWeight="bold"
+        fontSize="lg"
+        onClick={() => router.push("/")}
+        cursor="pointer"
+      >
         Tech Marketplace
       </Box>
 
