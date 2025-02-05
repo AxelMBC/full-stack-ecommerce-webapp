@@ -1,4 +1,8 @@
-export default function ProductCard({ product }) {
+export default function ProductCard({
+  product,
+}: {
+  product: { name: string; description: string };
+}) {
   return (
     <div>
       <h4>{product.name}</h4>
